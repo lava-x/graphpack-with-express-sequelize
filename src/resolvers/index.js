@@ -1,38 +1,28 @@
-import { combineResolvers } from 'graphql-resolvers';
-import { isAuthenticated, signin, signup } from 'resolvers/auth';
-import { getArticleById, getArticles, createArticle } from 'resolvers/article';
-import { getPost, getPosts, createPost } from 'resolvers/post';
-import { getPostComments, getComment, createComment } from 'resolvers/comment';
-import { getProfile, getUser, getUsers } from 'resolvers/user';
+import fs from 'fs';
+import defaultModule from './module';
+import context from './context';
 
-const resolvers = {
-  Query: {
-    hello: () => 'world!',
-    profile: getProfile,
-    getArticle: getArticleById,
-    getArticles,
-    getPost,
-    getPosts,
-    getPostComments,
-    getComment,
-    getUser: combineResolvers(isAuthenticated('admin'), getUser),
-    getUsers: combineResolvers(isAuthenticated('admin'), getUsers),
-    testExtendsQuery: (obj, args, context) => {
-      return args.text;
-    },
-  },
-  Mutation: {
-    createArticle: combineResolvers(isAuthenticated(), createArticle),
-    createPost: combineResolvers(isAuthenticated(), createPost),
-    createComment: combineResolvers(isAuthenticated(), createComment),
-    signin,
-    signup,
-  },
-  Post: {
-    comments: function(obj, args, context, info) {
-      return context.schemas.comment.find({ post: obj.id });
-    },
-  },
-};
+let rootResolvers = Object.assign({}, defaultModule(context));
+const req = require.context('../modules/', true, /\/module.js$/);
+req.keys().forEach((path) => {
+  const fileName = path.split('/');
+  const schemaName = fileName[1];
+  const filePath = `./src/modules/${schemaName}/module.js`;
+  if (fs.existsSync(filePath)) {
+    const modules = require(`../modules/${schemaName}/module.js`);
+    const resolvers = modules.default(context);
+    const { Query, Mutation, ...rest } = resolvers;
 
-export default resolvers;
+    Object.assign(rootResolvers, { ...rest });
+    if (Query) {
+      Object.assign(rootResolvers.Query, { ...Query });
+    }
+    if (Mutation) {
+      Object.assign(rootResolvers.Mutation, { ...Mutation });
+    }
+
+    console.log(`[ Resolver ] '${schemaName}' is registered`);
+  }
+});
+
+export default rootResolvers;

@@ -1,11 +1,11 @@
-import config from 'config';
-import passport from 'passport';
-import passportJWT from 'passport-jwt';
+const config = require('config');
+const passport = require('passport');
+const passportJWT = require('passport-jwt');
 
 const ExtractJWT = passportJWT.ExtractJwt;
 const JWTStrategy = passportJWT.Strategy;
 
-export default (schemas) => {
+module.exports = (schemas, services) => {
   // see https://github.com/themikenicholson/passport-jwt for options
   const options = {
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
@@ -15,9 +15,11 @@ export default (schemas) => {
   passport.use(
     new JWTStrategy(options, async (payload, done) => {
       try {
-        const user = await schemas.user.findByPk(payload.userId);
+        const user = await schemas.user.findById(payload.userId);
         return done(null, user);
       } catch (err) {
+        console.log('Failed to validate jwt');
+        console.log(JSON.stringify(err, null, 8));
         return done(err);
       }
     })

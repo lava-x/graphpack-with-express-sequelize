@@ -1,5 +1,3 @@
-import { getUserId } from 'resolvers/auth';
-
 export function getArticles(obj, args, context) {
   const { size, page } = args;
   const SchemaArticle = context.schemas.article;

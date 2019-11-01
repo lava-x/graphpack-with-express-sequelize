@@ -1,17 +1,16 @@
 import config from 'config';
 import passport from 'passport';
-import TokenHelper from 'helpers/TokenHelper';
-import sequalize from 'libs/sequalize';
-import initalizePassport from 'libs/passport';
-
-// establish sequalize connection
-const { models, instance } = sequalize();
-const token = config.token;
-const tokenHelper = new TokenHelper(token.secret, token.jwt);
-// initialize passport with strategies
-initalizePassport(models);
 
 const context = async ({ req, res }) => {
+  const { helpers, services, mongoose, facebook } = req;
+  const { schemas, instance } = mongoose;
+
+  // remove from request
+  delete req.mongoose;
+  delete req.services;
+  delete req.helpers;
+  delete req.facebook;
+
   return new Promise((resolve) => {
     // verify jwt token from header and extract user info from token
     passport.authenticate('jwt', { session: false }, (err, user) => {
@@ -21,11 +20,11 @@ const context = async ({ req, res }) => {
         res,
         user, // user info
         config, // values from config file
-        schemas: models, // sequalize model with file name - e.g: user, article
-        sequalize: instance, // sequalize instance
-        helpers: {
-          token: tokenHelper,
-        },
+        schemas, // mongoose model with module name - e.g: user, article
+        mongoose: instance, // mongoose instance
+        services, // modules data services
+        helpers, // helpers e.g: TokenHelper
+        facebook, // facebook sdk
       });
     })(req, res);
   });

@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 class TokenHelper {
   constructor(secret, signOptions, verifyOptions) {
@@ -7,6 +7,15 @@ class TokenHelper {
       sign: signOptions || {},
       verify: verifyOptions || {},
     };
+  }
+
+  parse(hdrValue) {
+    // parse authorization token
+    if (typeof hdrValue !== 'string') {
+      return null;
+    }
+    var matches = hdrValue.match(/(\S+)\s+(\S+)/);
+    return matches && { scheme: matches[1], value: matches[2] };
   }
 
   sign(payload, options) {
@@ -35,7 +44,6 @@ class TokenHelper {
     return new Promise((resolve, reject) => {
       jwt.sign(payload, this.secret, extendOptions, (err, decoded) => {
         if (err) {
-          console.log(err);
           return reject(err);
         }
         resolve(decoded);
@@ -79,4 +87,4 @@ class TokenHelper {
   }
 }
 
-export default TokenHelper;
+module.exports = TokenHelper;

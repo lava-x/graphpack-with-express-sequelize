@@ -1,11 +1,11 @@
-import config from 'config';
-import passport from 'passport';
-import passportLocal from 'passport-local';
-import bcrypt from 'bcryptjs';
+const config = require('config');
+const passport = require('passport');
+const passportLocal = require('passport-local');
+const bcrypt = require('bcryptjs');
 
 const LocalStrategy = passportLocal.Strategy;
 
-export default (schemas) => {
+module.exports = (schemas, services) => {
   passport.use(
     new LocalStrategy(
       {
@@ -14,7 +14,7 @@ export default (schemas) => {
       },
       async (email, password, done) => {
         try {
-          const user = await schemas.user.findOne({ where: { email } });
+          const user = await schemas.user.findOne({ email });
           if (!user) {
             return done(null, false, {
               message: 'Please enter a valid email and password',

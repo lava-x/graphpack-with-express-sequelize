@@ -19,7 +19,7 @@ module.exports = () => {
 
   // --- helpers to use in application
   const helpers = {
-    Token: tokenHelper,
+    token: tokenHelper,
   };
 
   /**

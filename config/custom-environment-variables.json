@@ -1,0 +1,6 @@
+{
+  "facebook": {
+    "clientID": "FB_APP_ID",
+    "clientSecret": "FB_APP_SECRET"
+  }
+}

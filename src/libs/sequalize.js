@@ -28,7 +28,7 @@ const registerSchemas = (sequelize) => {
   return schemas;
 };
 
-// === Associate sequalize schemas relation
+// === Associate sequelize schemas relation
 const associateSchemas = (schemas) => {
   Object.keys(schemas).forEach((key) => {
     const model = schemas[key];

@@ -3,7 +3,7 @@ const config = require('config');
 const FB = require('fb');
 const TokenHelper = require(resolve('./src/helpers/TokenHelper'));
 // libs
-const { initialize } = require(resolve('./src/libs/sequalize'));
+const { initialize } = require(resolve('./src/libs/sequelize'));
 const initalizeServices = require(resolve('./src/libs/services'));
 const initalizePassport = require(resolve('./src/libs/passport'));
 

@@ -148,7 +148,7 @@ module.exports = (sequelize) => {
 
 > Note: Please use `require` for import packages and `module.exports` for exporting your model like example above.
 
-Once you add your model, you are able to access your model in your resolvers. To access your sequalize schemas with `context.schemas`
+Once you add your model, you are able to access your model in your resolvers. To access your sequelize schemas with `context.schemas`
 
 ```js
 export function someResolver(obj, args, context, info) {

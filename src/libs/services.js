@@ -18,9 +18,9 @@ module.exports = (models, helpers, resources) => {
           services,
           resources
         );
-        console.log(`[ Provider ] '${moduleName}' is registered`);
+        console.log(`[ Service ] '${moduleName}' is registered`);
       } else {
-        console.log(`[ Provider ] '${moduleName}' already existed`);
+        console.log(`[ Service ] '${moduleName}' already existed`);
       }
     }
   });

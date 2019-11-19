@@ -29,7 +29,7 @@ module.exports = () => {
    * */
   const resources = {};
 
-  // create mongoose instance, model
+  // create sequelize instance, model
   const { schemas, instance } = initialize(helpers, resources);
 
   // initialize services
@@ -47,9 +47,9 @@ module.exports = () => {
 
   // initialize passport with strategies
   return {
-    mongoose: {
-      schemas, // mongoose model with file name - e.g: user, article
-      instance, // mongoose instance
+    sequelize: {
+      schemas, // sequelize model with file name - e.g: user, article
+      instance, // sequelize instance
     },
     services,
     helpers,

@@ -2,11 +2,11 @@ import config from 'config';
 import passport from 'passport';
 
 const context = async ({ req, res }) => {
-  const { helpers, services, mongoose, facebook } = req;
-  const { schemas, instance } = mongoose;
+  const { helpers, services, sequelize, facebook } = req;
+  const { schemas, instance } = sequelize;
 
   // remove from request
-  delete req.mongoose;
+  delete req.sequelize;
   delete req.services;
   delete req.helpers;
   delete req.facebook;
@@ -20,8 +20,8 @@ const context = async ({ req, res }) => {
         res,
         user, // user info
         config, // values from config file
-        schemas, // mongoose model with module name - e.g: user, article
-        mongoose: instance, // mongoose instance
+        schemas, // sequelize model with module name - e.g: user, article
+        sequelize: instance, // sequelize instance
         services, // modules data services
         helpers, // helpers e.g: TokenHelper
         facebook, // facebook sdk

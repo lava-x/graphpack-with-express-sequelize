@@ -101,7 +101,7 @@ You can modify the config files for different environment like `production` and 
 
 ## Add Sequelize Model
 
-Create your mongoose model under folder `/src/models`, see http://docs.sequelizejs.com/manual/models-definition.html for more details.
+Create your sequelize model under folder `/src/models`, see http://docs.sequelizejs.com/manual/models-definition.html for more details.
 
 ```js
 // --- Example - user.model.js

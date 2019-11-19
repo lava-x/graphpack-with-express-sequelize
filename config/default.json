@@ -21,7 +21,7 @@
       },
       "audience": "https://www.yourdomain.com.my",
       "subject": "anonymous",
-      "issuer": "graphpack-mongoose",
+      "issuer": "graphpack-sequelize",
       "algorithm": "HS256",
       "expiresIn": "30d"
     }

@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const config = require('config');
 
 /**
  * ==============================
@@ -41,7 +42,7 @@ module.exports = (mode) => {
 
   return {
     server: {
-      port: 4100,
+      port: config.port || 4000,
       introspection: IS_DEV,
       playground: IS_DEV,
       applyMiddleware: {

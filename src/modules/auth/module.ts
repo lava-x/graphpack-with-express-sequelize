@@ -1,4 +1,4 @@
-import { combineResolvers } from 'graphql-resolvers';
+// import { combineResolvers } from 'graphql-resolvers';
 import { signin, signup } from './resolvers';
 
 export default (modules) => {

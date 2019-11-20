@@ -14,7 +14,7 @@ module.exports = (schemas, services) => {
       },
       async (email, password, done) => {
         try {
-          const user = await schemas.user.findOne({ email });
+          const user = await schemas.user.findOne({ where: { email } });
           if (!user) {
             return done(null, false, {
               message: 'Please enter a valid email and password',

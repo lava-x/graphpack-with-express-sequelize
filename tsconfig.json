@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"moduleResolution": "node",
+		"allowJs": true,
+		// "noEmit": false, // for ts
+		"noEmit": true, // for babel
+		"strict": true,
+		"isolatedModules": true,
+		"esModuleInterop": true
+	},
+	"include": [
+		"src"
+  ]
+}

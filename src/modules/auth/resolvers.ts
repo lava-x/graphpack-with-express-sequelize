@@ -12,7 +12,11 @@ export async function signup(parent: any, args: { password: string; }, context: 
     ...args,
     password,
   });
-  const token = tokenHelper.sign({ userId: user.id, name: user.name });
+  const token = tokenHelper.sign({
+    userId: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+  });
   return {
     token,
     user,

@@ -11,12 +11,14 @@ module.exports = (sequelize) => {
   class UserSchema extends Model {}
   UserSchema.init(
     {
-      name: { type: Sequelize.STRING, allowNull: false },
+      firstName: { type: Sequelize.STRING, allowNull: false },
+      lastName: { type: Sequelize.STRING, allowNull: false },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: { isEmail: true },
       },
+      username: { type: Sequelize.STRING, allowNull: false },
       password: { type: Sequelize.STRING, allowNull: false },
       roles: {
         type: Sequelize.ARRAY(Sequelize.ENUM('admin', 'user')),

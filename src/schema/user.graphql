@@ -16,13 +16,17 @@ type AuthPayload {
 
 type User {
   id: String
-  name: String
-  email: String
+  firstName: String
+  lastName: String
+  email: String!
+  username: String
   roles: [String!]!
 }
 
 type UserWithBasicInfo {
   id: String
-  name: String
-  email: String
+  firstName: String
+  lastName: String
+  email: String!
+  username: String
 }

@@ -15,10 +15,10 @@ module.exports = (schemas, services) => {
   passport.use(
     new JWTStrategy(options, async (payload, done) => {
       try {
-        const user = await schemas.user.findById(payload.userId);
+        const user = await schemas.user.findByPk(payload.userId);
         return done(null, user);
       } catch (err) {
-        console.log('Failed to validate jwt');
+        console.log('Failed to validate jwt', err);
         console.log(JSON.stringify(err, null, 8));
         return done(err);
       }
